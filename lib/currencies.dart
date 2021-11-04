@@ -5,7 +5,8 @@ class Currency {
   late String price;
   late String change;
   late String icon;
+  late String rank;
 
-  Currency({required this.name, required this.price, required this.symbol, required this.change, required this.icon});
+  Currency({required this.name, required this.price, required this.symbol, required this.change, required this.icon, required this.rank});
 
 }

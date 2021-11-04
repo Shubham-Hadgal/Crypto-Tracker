@@ -26,7 +26,7 @@ class _LoadingState extends State<Loading> {
 
     for(var i in data)
     {
-      Currency coin = Currency(name: i['name'], symbol: i['symbol'], price: i['price'].toStringAsFixed(2), change: i['priceChange1d'].toStringAsFixed(2), icon: i['icon']);
+      Currency coin = Currency(name: i['name'], symbol: i['symbol'], price: i['price'].toStringAsFixed(2), change: i['priceChange1d'].toStringAsFixed(2), icon: i['icon'], rank: i['rank']);
       listOfData.add(coin);
     }
   }
