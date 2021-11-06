@@ -1,3 +1,4 @@
+import 'package:crypto_app/currencies.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -9,12 +10,12 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-  late List listOfData;
+  late List<Currency> listOfData;
 
   @override
   Widget build(BuildContext context) {
 
-    listOfData = ModalRoute.of(context)!.settings.arguments as List;
+    listOfData = ModalRoute.of(context)!.settings.arguments as List<Currency>;
 
     return Scaffold(
       backgroundColor: Colors.grey[900],
@@ -82,6 +83,9 @@ class _HomeState extends State<Home> {
             padding: const EdgeInsets.fromLTRB(3.0, 0.0, 3.0, 0.0),
             child: InkWell(
               onTap: (){
+                print(listOfData[index].name);
+                print(listOfData[index].rank);
+                print(listOfData[index].marketCap);
               },
               child: Container(
                 constraints: BoxConstraints.expand(

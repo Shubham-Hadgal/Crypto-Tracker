@@ -1,10 +1,10 @@
 import 'dart:convert';
-import 'package:crypto_app/currencies.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'currencies.dart';
 
 class Loading extends StatefulWidget {
   const Loading({Key? key}) : super(key: key);
@@ -26,7 +26,7 @@ class _LoadingState extends State<Loading> {
 
     for(var i in data)
     {
-      Currency coin = Currency(name: i['name'], symbol: i['symbol'], price: i['price'].toStringAsFixed(2), change: i['priceChange1d'].toStringAsFixed(2), icon: i['icon'], rank: i['rank']);
+      Currency coin = Currency(name: i['name'], symbol: i['symbol'], price: i['price'].toStringAsFixed(2), change: i['priceChange1d'].toStringAsFixed(2), icon: i['icon'], rank: i['rank'].toString(), marketCap: i['marketCap'].toStringAsFixed(3));
       listOfData.add(coin);
     }
   }

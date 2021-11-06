@@ -1,3 +1,4 @@
+import 'package:crypto_app/currencies.dart';
 import 'package:flutter/material.dart';
 import 'home.dart';
 import 'loading.dart';
