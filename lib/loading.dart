@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'currencies.dart';
 
+
 class Loading extends StatefulWidget {
   const Loading({Key? key}) : super(key: key);
 
@@ -26,7 +27,13 @@ class _LoadingState extends State<Loading> {
 
     for(var i in data)
     {
-      Currency coin = Currency(name: i['name'], symbol: i['symbol'], price: i['price'].toStringAsFixed(2), change: i['priceChange1d'].toStringAsFixed(2), icon: i['icon'], rank: i['rank'].toString(), marketCap: i['marketCap'].toStringAsFixed(3));
+      Currency coin = Currency(name: i['name'], symbol: i['symbol'],
+          price: i['price'].toStringAsFixed(2), change1h: i['priceChange1h'].toStringAsFixed(2),
+          change1d: i['priceChange1d'].toStringAsFixed(2),
+          change1w: i['priceChange1w'].toStringAsFixed(2), icon: i['icon'],
+          rank: i['rank'].toString(), marketCap: i['marketCap'].toStringAsFixed(3),
+          websiteUrl: i['websiteUrl'], totalSupply: i['totalSupply'].toString(),
+          availableSupply: i['availableSupply'].toString());
       listOfData.add(coin);
     }
   }
