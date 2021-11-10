@@ -26,6 +26,16 @@ class _HomeState extends State<Home> {
             color: Color(0xffe5e8e8),
           ),
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.search,
+              color: Color(0xff566b82),
+            ),
+            iconSize: 28.0,
+            onPressed: () {},
+          ),
+        ],
         elevation: 0.0,
         backgroundColor: const Color(0xff283747),
       ),
@@ -52,6 +62,7 @@ class _HomeState extends State<Home> {
                   listOfData[index].name,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
+                    overflow: TextOverflow.ellipsis,
                     color: Colors.white,
                     fontSize: 17.0,
                   ),
@@ -89,7 +100,7 @@ class _HomeState extends State<Home> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(0.0, 5.0, 8.0, 0.0),
                 child: Text(
-                  change > 0 ? '+${listOfData[index].change1h}' : listOfData[index].change1h,
+                  change > 0 ? '+${listOfData[index].change1h}%' : '${listOfData[index].change1h}%',
                   style: TextStyle(
                     color: changeColor,
                     fontSize: 16.0,
@@ -103,18 +114,7 @@ class _HomeState extends State<Home> {
             padding: const EdgeInsets.fromLTRB(3.0, 0.0, 3.0, 0.0),
             child: InkWell(
               onTap: (){
-                // print(listOfData[index].name);
-                // print(listOfData[index].symbol);
-                // print(listOfData[index].price);
-                // print(listOfData[index].icon);
-                // print(listOfData[index].rank);
-                // print(listOfData[index].marketCap);
-                // print(listOfData[index].change1h);
-                // print(listOfData[index].change1d);
-                // print(listOfData[index].change1w);
-                // print(listOfData[index].totalSupply);
-                // print(listOfData[index].availableSupply);
-                // print(listOfData[index].websiteUrl);
+                Navigator.pushNamed(context, '/more_details', arguments: listOfData[index]);
               },
               child: Container(
                 constraints: BoxConstraints.expand(
@@ -125,6 +125,7 @@ class _HomeState extends State<Home> {
                   shadowColor: Colors.transparent,
                   child: Row(
                     children: [
+                      const SizedBox(width: 7.0),
                       Container(
                         child: icon,
                         padding: const EdgeInsets.all(5.0),
@@ -154,7 +155,7 @@ class _HomeState extends State<Home> {
         return const Color(0xff00ff71);
     }
     else if(change < 0){
-      return const Color(0xffff0000);
+      return const Color(0xffff3939);
     }
     else {
       return const Color(0xffeaeaea);

@@ -1,9 +1,7 @@
-import 'dart:convert';
+import 'package:crypto_app/network/api_call.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
 import 'currencies.dart';
 
 
@@ -16,27 +14,7 @@ class Loading extends StatefulWidget {
 
 class _LoadingState extends State<Loading> {
 
-  List<Currency> listOfData = [];
-
-  Future getCurrencies() async {
-
-    Response response = await http.get(Uri.https('api.coinstats.app', 'public/v1/coins'));
-    var jsonData =  jsonDecode(response.body);
-    var data = jsonData['coins'];
-    listOfData.clear();
-
-    for(var i in data)
-    {
-      Currency coin = Currency(name: i['name'], symbol: i['symbol'],
-          price: i['price'].toStringAsFixed(2), change1h: i['priceChange1h'].toStringAsFixed(2),
-          change1d: i['priceChange1d'].toStringAsFixed(2),
-          change1w: i['priceChange1w'].toStringAsFixed(2), icon: i['icon'],
-          rank: i['rank'].toString(), marketCap: i['marketCap'].toStringAsFixed(3),
-          websiteUrl: i['websiteUrl'], totalSupply: i['totalSupply'].toString(),
-          availableSupply: i['availableSupply'].toString());
-      listOfData.add(coin);
-    }
-  }
+  List<Currency> listOfData = ApiCall().listOfData;
 
   @override
   void initState() {
@@ -45,14 +23,14 @@ class _LoadingState extends State<Loading> {
   }
 
   _navigateToHome() async {
-    await getCurrencies();
+    await ApiCall().getCurrencies();
     Navigator.pushReplacementNamed(context, '/home', arguments: listOfData);
   }
 
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      backgroundColor: Colors.blueGrey,
+      backgroundColor: Color(0xff283747),
       body: Center(
         child: SpinKitRing(
           color: Colors.white,
