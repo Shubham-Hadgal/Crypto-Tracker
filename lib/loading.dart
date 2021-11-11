@@ -14,7 +14,7 @@ class Loading extends StatefulWidget {
 
 class _LoadingState extends State<Loading> {
 
-  List<Currency> listOfData = ApiCall().listOfData;
+  List<SingleCurrency> listOfData = ApiCall().listOfData;
 
   @override
   void initState() {
@@ -34,7 +34,7 @@ class _LoadingState extends State<Loading> {
       body: Center(
         child: SpinKitRing(
           color: Colors.white,
-          size: 50.0,
+          size: 60.0,
         ),
       ),
     );

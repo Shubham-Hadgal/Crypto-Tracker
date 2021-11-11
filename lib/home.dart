@@ -1,6 +1,5 @@
 import 'package:crypto_app/currencies.dart';
 import 'package:flutter/material.dart';
-
 import 'network/api_call.dart';
 
 class Home extends StatefulWidget {
@@ -12,13 +11,12 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-  late List<Currency> listOfData;
+  late List<SingleCurrency> listOfData;
 
   @override
   Widget build(BuildContext context) {
 
-    listOfData = ModalRoute.of(context)!.settings.arguments as List<Currency>;
-
+    listOfData = ModalRoute.of(context)!.settings.arguments as List<SingleCurrency>;
     return Scaffold(
       backgroundColor: const Color(0xff283747),
       appBar: AppBar(
@@ -28,16 +26,6 @@ class _HomeState extends State<Home> {
             color: Color(0xffe5e8e8),
           ),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.search,
-              color: Color(0xff566b82),
-            ),
-            iconSize: 28.0,
-            onPressed: () {},
-          ),
-        ],
         elevation: 0.0,
         backgroundColor: const Color(0xff283747),
       ),
@@ -115,23 +103,22 @@ class _HomeState extends State<Home> {
 
             return Padding(
               padding: const EdgeInsets.fromLTRB(3.0, 0.0, 3.0, 0.0),
+
               child: InkWell(
                 onTap: (){
                   Navigator.pushNamed(context, '/more_details', arguments: listOfData[index]);
                 },
                 child: Container(
                   constraints: BoxConstraints.expand(
-                    height: Theme.of(context).textTheme.headline4!.fontSize! * 1.1 + 45.0,
+                    height: Theme.of(context).textTheme.headline4!.fontSize! * 1.1 + 40.0,
                   ),
                   child: Card(
                     color: const Color(0xFF1C2833),
                     shadowColor: Colors.transparent,
                     child: Row(
                       children: [
-                        Container(
-                          child: icon,
-                          padding: const EdgeInsets.all(5.0),
-                        ),
+                        const SizedBox(width: 7.0),
+                        icon,
                         const SizedBox(width: 10.0),
                         Expanded(
                           flex: 1,
@@ -151,6 +138,7 @@ class _HomeState extends State<Home> {
         ),
         onRefresh: () async {
           await _navigateToHome();
+          Navigator.pushReplacementNamed(context, '/home', arguments: listOfData);
         },
       ),
     );
@@ -158,7 +146,6 @@ class _HomeState extends State<Home> {
 
   _navigateToHome() async {
     await ApiCall().getCurrencies();
-    Navigator.pushReplacementNamed(context, '/home', arguments: listOfData);
   }
 
   Color getChangeColor(double change) {
