@@ -24,7 +24,7 @@ class _MoreDetailsState extends State<MoreDetails> {
     Widget symbolAndRankRow = Row(
       children: [
         Text(details.symbol),
-        Spacer(),
+        const Spacer(),
         Text(details.rank),
       ],
     );
@@ -32,8 +32,8 @@ class _MoreDetailsState extends State<MoreDetails> {
     Widget marketCapital = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Market Capital'),
-        SizedBox(height: 10.0),
+        const Text('Market Capital'),
+        const SizedBox(height: 10.0),
         Text(details.marketCap),
       ],
     );
@@ -42,11 +42,11 @@ class _MoreDetailsState extends State<MoreDetails> {
     return Scaffold(
       backgroundColor: const Color(0xff283747),
       appBar: AppBar(
-        title: Text('More Details'),
+        title: const Text('More Details'),
         backgroundColor: const Color(0xff283747),
       ),
       body: Padding(
-        padding: EdgeInsets.all(3.0),
+        padding: const EdgeInsets.all(3.0),
         child: marketCapital,
       ),
     );
