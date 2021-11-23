@@ -1,16 +1,13 @@
-# crypto_app
+# Crypto App
 
-A new Flutter project.
+An Android App that fetches the crypto currency data from internet and displays it accordingly.
 
-## Getting Started
+## Tools Used
 
-This project is a starting point for a Flutter application.
+Coinstat API and JSON parsing
 
-A few resources to get you started if this is your first Flutter project:
+# Screenshots of the App
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+<img src="https://github.com/Shubham-Hadgal/Crypto-Tracker/blob/master/Screenshots/s1.png" width="300" height="600">    <img src="https://github.com/Shubham-Hadgal/Crypto-Tracker/blob/master/Screenshots/s2.png" width="300" height="600">    
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img src="https://github.com/Shubham-Hadgal/Crypto-Tracker/blob/master/Screenshots/s3.png" width="300" height="600">
