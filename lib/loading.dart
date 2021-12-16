@@ -6,6 +6,9 @@ import 'currencies.dart';
 
 
 class Loading extends StatefulWidget {
+
+  static List<SingleCurrency> listOfData = [];
+
   const Loading({Key? key}) : super(key: key);
 
   @override
@@ -13,8 +16,6 @@ class Loading extends StatefulWidget {
 }
 
 class _LoadingState extends State<Loading> {
-
-  List<SingleCurrency> listOfData = ApiCall().listOfData;
 
   @override
   void initState() {
@@ -24,7 +25,8 @@ class _LoadingState extends State<Loading> {
 
   _navigateToHome() async {
     await ApiCall().getCurrencies();
-    Navigator.pushReplacementNamed(context, '/home', arguments: listOfData);
+    Loading.listOfData = ApiCall.listOfData;
+    Navigator.pushReplacementNamed(context, '/home', arguments: Loading.listOfData);
   }
 
   @override

@@ -5,11 +5,8 @@ import 'package:http/http.dart' as http;
 
 class ApiCall {
 
-  List<SingleCurrency> listOfData = [];
+  static List<SingleCurrency> listOfData = [];
 
-  ApiCall() {
-    getCurrencies();
-  }
 
   Future getCurrencies() async {
 

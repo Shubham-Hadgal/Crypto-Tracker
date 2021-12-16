@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'network/api_call.dart';
 
 class Home extends StatefulWidget {
+
+  static List<SingleCurrency> listOfData = [];
   const Home({Key? key}) : super(key: key);
 
   @override
@@ -11,12 +13,24 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-  late List<SingleCurrency> listOfData;
+  Future refreshData() async{
+    await ApiCall().getCurrencies();
+    setState(() {
+      Home.listOfData = ApiCall.listOfData;
+    });
+  }
+
+  @override
+  void initState() {
+    refreshData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
 
-    listOfData = ModalRoute.of(context)!.settings.arguments as List<SingleCurrency>;
+    Home.listOfData = ModalRoute.of(context)!.settings.arguments as List<SingleCurrency>;
+
     return Scaffold(
       backgroundColor: const Color(0xff283747),
       appBar: AppBar(
@@ -31,14 +45,14 @@ class _HomeState extends State<Home> {
       ),
       body: RefreshIndicator(
         child: ListView.builder(
-          itemCount: listOfData.length,
+          itemCount: Home.listOfData.length,
           itemBuilder: (BuildContext context, int index) {
 
-            double change = double.parse(listOfData[index].change1h);
+            double change = double.parse(Home.listOfData[index].change1h);
             Color changeColor = getChangeColor(change);
 
             Widget icon = CircleAvatar(
-              backgroundImage: NetworkImage(listOfData[index].icon),
+              backgroundImage: NetworkImage(Home.listOfData[index].icon),
               backgroundColor: Colors.black45,
               radius: 20.0,
             );
@@ -50,7 +64,7 @@ class _HomeState extends State<Home> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0.0, 5.0, 8.0, 0.0),
                   child: Text(
-                    listOfData[index].name,
+                    Home.listOfData[index].name,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       overflow: TextOverflow.ellipsis,
@@ -63,7 +77,7 @@ class _HomeState extends State<Home> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0.0, 5.0, 8.0, 0.0),
                   child: Text(
-                    listOfData[index].symbol,
+                    Home.listOfData[index].symbol,
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16.0,
@@ -80,7 +94,7 @@ class _HomeState extends State<Home> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0.0, 5.0, 8.0, 0.0),
                   child: Text(
-                    'Price: \$ ${listOfData[index].price}',
+                    'Price: \$ ${Home.listOfData[index].price}',
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16.0,
@@ -91,7 +105,7 @@ class _HomeState extends State<Home> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0.0, 5.0, 8.0, 0.0),
                   child: Text(
-                    change > 0 ? '+${listOfData[index].change1h}%' : '${listOfData[index].change1h}%',
+                    change > 0 ? '+${Home.listOfData[index].change1h}%' : '${Home.listOfData[index].change1h}%',
                     style: TextStyle(
                       color: changeColor,
                       fontSize: 16.0,
@@ -106,7 +120,7 @@ class _HomeState extends State<Home> {
 
               child: InkWell(
                 onTap: (){
-                  Navigator.pushNamed(context, '/more_details', arguments: listOfData[index]);
+                  Navigator.pushNamed(context, '/more_details', arguments: Home.listOfData[index]);
                 },
                 child: Container(
                   constraints: BoxConstraints.expand(
@@ -136,16 +150,9 @@ class _HomeState extends State<Home> {
             );
           },
         ),
-        onRefresh: () async {
-          await _navigateToHome();
-          Navigator.pushReplacementNamed(context, '/home', arguments: listOfData);
-        },
+        onRefresh: refreshData,
       ),
     );
-  }
-
-  _navigateToHome() async {
-    await ApiCall().getCurrencies();
   }
 
   Color getChangeColor(double change) {
