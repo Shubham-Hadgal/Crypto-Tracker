@@ -6,6 +6,7 @@ import 'loading.dart';
 void main() {
   runApp(MaterialApp(
       initialRoute: '/',
+      debugShowCheckedModeBanner: false,
       routes: {
         '/': (context) => const Loading(),
         '/home': (context) => const Home(),
